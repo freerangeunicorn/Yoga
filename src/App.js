@@ -1,10 +1,17 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import './App.css';
-
+import React from "react";
+import { Button } from "react-bootstrap";
+import "./App.css";
+import NavBar from "./components/NavBar";
+import Home from "./components/Home";
+import Teacher from "./components/Teacher";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Student from "./components/Student";
+/* import Footer from "./components/Footer"; */
+import TeacherSignUp from "./components/TeacherSignUp";
 
 function App() {
-  const getTeacher = async () => { 
+  
+/*   const getTeacher = async () => { 
   const url = 'http://localhost:3000/api/teacher'
   try {
     const header = new Headers();
@@ -24,15 +31,25 @@ function App() {
   } catch (error) {
     console.log(error)
   }
-}
-
-
+} */
   return (
-    <div className="App">
-      <header className="App-header">
-        Test
-      </header>
-      <Button onClick={getTeacher}>GetTeacher</Button>
+    
+  <div>
+    <div>
+      <Router>
+        <NavBar/>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/teacher" component={Teacher} />
+            <Route path="/student" component={Student} />
+            {/* <Route path="/login" component={Login} /> */}
+            <Route path="/teachersignup" component={TeacherSignUp} />
+            {/* <Route path="/teachersignup" component={} /> */}
+          </Switch>
+          </Router>
+        </div>
+        {/* <Footer /> */}
+     
     </div>
   );
 }
