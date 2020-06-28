@@ -1,12 +1,14 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import Teacher from "./components/Teacher";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Student from "./components/Student";
+import Student from "./components/Student"; 
+import TeacherSignUp from "./components/TeacherSignUp";
+import StudentSignUp from "./components/StudentSignUp";
 import Footer from "./components/Footer";
+
 
 function App() {
   return (
@@ -14,11 +16,13 @@ function App() {
       <div className="content-wrap">
         <Router>
           <NavBar />
-
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/teacher" component={Teacher} />
             <Route path="/student" component={Student} />
+  
+            <Route path="/signupteacher" component={TeacherSignUp} />
+            <Route path="/signupstudent" component={StudentSignUp} />
           </Switch>
           </Router>
         </div>
@@ -27,5 +31,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

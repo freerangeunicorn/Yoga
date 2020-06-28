@@ -20,9 +20,8 @@ const getTeacher = async () => {
     }
   }
   
-  
     return (
-      <div className="App">
+      <div className="Get">
         <header className="App-header">
           Test
         </header>

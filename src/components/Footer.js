@@ -7,7 +7,7 @@ import React from 'react';
                 <div className="row">
                     {/* Column1 */}
                     <div className="col">
-                        <h7>Yoga from the comfort of your home</h7>
+                        <h6>Yoga from the comfort of your home</h6>
                         <ul className="list-unstyled">
                             <li>Phone number</li>
                             <li>Location</li>
