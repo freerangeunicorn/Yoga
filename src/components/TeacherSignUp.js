@@ -63,6 +63,7 @@ function TeacherSignUp() {
           'Content-type': 'application/json'
           // 'Content-Type': 'application/x-www-form-urlencoded', 
         },
+        withCredentials: true,
         body: JSON.stringify(teacherData)
       });
       console.log(response);
