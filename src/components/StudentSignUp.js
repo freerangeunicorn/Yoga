@@ -7,9 +7,11 @@ function StudentSignUp() {
       <Form>
         <Form.Row>
           <Col>
+          <Form.Label>First Name</Form.Label>
             <Form.Control placeholder="First name" />
           </Col>
           <Col>
+          <Form.Label>Last Name</Form.Label>
             <Form.Control placeholder="Last name" />
           </Col>
         </Form.Row>
@@ -25,8 +27,8 @@ function StudentSignUp() {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
         </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+        <Form.Group controlId="formConfirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
         </Form.Group>
         <Form.Group controlId="formBasicCheckbox">
