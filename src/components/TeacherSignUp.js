@@ -24,11 +24,6 @@ function TeacherSignUp() {
     }
   }, [password, password2]);
 
-  /* useEffect(()=> {
-    if (teacherData)
-  }
-
-  ) */
 
   const onExperience = (value) => {
     /* console.log(value) */
@@ -40,9 +35,11 @@ function TeacherSignUp() {
       setExperience(years);
     }
   };
-  const onSubmit = async () => {
-    console.log("submit");
-    console.log(timeZone);
+
+
+  const onSubmit = async() => {
+  
+  
     const url = 'http://localhost:3000/api/teacher'
     const teacherData = {
       first_name: firstName,
@@ -53,17 +50,15 @@ function TeacherSignUp() {
       default_timezone: timeZone,
     }
     console.log(JSON.stringify(teacherData))
+    
     try {
       const header = new Headers();
-      header.append('Accept', 'application/json')
+      header.append('Accept', 'application/json');
+      header.append('Content-type','application/json');
       const response = await fetch(url, { 
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json'
-          // 'Content-Type': 'application/x-www-form-urlencoded', 
-        },
-        withCredentials: true,
+        headers: header, 
+        //withCredentials: true,
         body: JSON.stringify(teacherData)
       });
       console.log(response);
@@ -166,7 +161,7 @@ function TeacherSignUp() {
           type="checkbox" label="I agree to these terms" feedback="You must agree before submitting." />
         </Form.Group>
 
-        <Button variant="dark" type="submit" onClick={() => onSubmit()}>
+        <Button variant="dark" onClick={() => onSubmit()}>
           Submit
         </Button>
       </Form>

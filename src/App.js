@@ -8,6 +8,7 @@ import Student from "./components/Student";
 import TeacherSignUp from "./components/TeacherSignUp";
 import StudentSignUp from "./components/StudentSignUp";
 import Footer from "./components/Footer";
+import Login from "./components/Login";
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/teacher" component={Teacher} />
             <Route path="/student" component={Student} />
-  
+            <Route path="/login" component={Login} />
             <Route path="/signupteacher" component={TeacherSignUp} />
             <Route path="/signupstudent" component={StudentSignUp} />
           </Switch>
