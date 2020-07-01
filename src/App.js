@@ -9,10 +9,12 @@ import TeacherSignUp from "./components/TeacherSignUp";
 import StudentSignUp from "./components/StudentSignUp";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
+import Context from "./components/Context";
 
 
 function App() {
   return (
+<Context>
     <div className="page-container">
       <div className="content-wrap">
         <Router>
@@ -30,6 +32,7 @@ function App() {
         <Footer />
      
     </div>
+    </Context>
   );
 }
 
