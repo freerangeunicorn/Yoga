@@ -1,8 +1,11 @@
 import React from "react";
-import { Form, Col, Button, Toast, ToastBody } from "react-bootstrap";
+import { Form, Col, Button, Toast, ToastBody, Alert } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import TimezonePicker from 'react-bootstrap-timezone-picker';
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
+import { useHistory } from "react-router-dom";
+
+
 
 
 function TeacherSignUp() {
@@ -14,7 +17,11 @@ function TeacherSignUp() {
   const [lastName, setLastName] = useState();
   const [timeZone, setTimeZone] = useState('Europe/Stockholm');
   const [showToast, setShowToast] = useState(false);
+  const [show,setShow]=useState(false);
+  const [errorMessage, setErrorMessage] = useState('Something went wrong')
   
+  const history=useHistory();
+
 
   useEffect(() => {
     if (password === password2) {
@@ -36,9 +43,7 @@ function TeacherSignUp() {
     }
   };
 
-
   const onSubmit = async() => {
-  
   
     const url = 'http://localhost:3000/api/teacher'
     const teacherData = {
@@ -63,9 +68,18 @@ function TeacherSignUp() {
       });
       console.log(response);
       const data = await response.json();
+      if (data.id) {
+        history.push('/login')
+      }
+      else {
+        setErrorMessage(data.error);
+        setShow(true);
+      }
       
        console.log(data);
     } catch (error) {
+      setErrorMessage('network problem');
+        setShow(true);
       console.log('error')
       console.log(error)
     }
@@ -75,6 +89,7 @@ function TeacherSignUp() {
     console.log(password);
     console.log(password2);
   };
+  
   return (
     <div className='d-flex justify-content-center'>
       <Form>
@@ -144,7 +159,6 @@ function TeacherSignUp() {
   onChange      = {(timeZone)=>setTimeZone(timeZone)}
 />
           </Form.Group>
-
           <Form.Group controlId="formGridExperience">
             <Form.Label>Years of Experience</Form.Label>
             <Form.Control
@@ -157,14 +171,24 @@ function TeacherSignUp() {
         </Form.Row>
 
         <Form.Group id="formGridCheckbox">
-          <Form.Check required
-          type="checkbox" label="I agree to these terms" feedback="You must agree before submitting." />
+          <Form.Check 
+          required
+          type="checkbox" 
+          label="I agree to these terms" 
+          feedback="You must agree before submitting." />
         </Form.Group>
-
+        
         <Button variant="dark" onClick={() => onSubmit()}>
           Submit
         </Button>
       </Form>
+
+      <Alert variant="danger" show={show} onClose={() => setShow(false)} dismissible>
+        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+        <p>
+          {errorMessage}
+        </p>
+      </Alert>
     </div>
   );
 }

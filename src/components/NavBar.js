@@ -19,11 +19,9 @@ function NavBar() {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="./.">Home</Nav.Link>
-          <Nav.Link href="./teacher">Teach a class</Nav.Link>
-          <Nav.Link href="./student">Take a class</Nav.Link>
           <NavDropdown title="Login" id="collasible-nav-dropdown">
         <NavDropdown.Item href="./login">As a teacher </NavDropdown.Item>
-        <NavDropdown.Item href="./signupstudent">Student</NavDropdown.Item>
+        <NavDropdown.Item href="./studentlogin">Student</NavDropdown.Item>
       </NavDropdown>
           <NavDropdown title="Signup" id="collasible-nav-dropdown">
         <NavDropdown.Item href="./signupteacher">Teacher </NavDropdown.Item>

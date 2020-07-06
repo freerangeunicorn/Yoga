@@ -1,17 +1,23 @@
 import React from "react";
-import { Form, Button, Col } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
-import Context from "./components/Context";
+import AppContext from "./Context";
+import Context from "./Context";
+import { useHistory } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  
-  const token = useContext(Context);
+  const [show,setShow]=useState(false);
+  const [errorMessage, setErrorMessage] = useState('Something went wrong')
 
+  const history=useHistory();
+
+  const token = useContext(AppContext);
 
 
   const onSubmit = async () => {
+  
     console.log("login");
 
     const url = "http://localhost:3000/api/login/teacher";
@@ -32,9 +38,18 @@ function Login() {
         withCredentials: true,
         body: JSON.stringify(login),
       });
-     
+
       const data = await response.json();
-      token.setToken(data.access_token);
+      console.log(token);
+      if (data.access_token){
+        history.push('/teacherprofile', {data})
+      } 
+      else {
+        setShow(true);
+        setErrorMessage('Login failed, try your luck one more time')
+      }
+      //token.setToken(data.access_token);
+
 
       console.log(data);
     } catch (error) {
@@ -44,6 +59,7 @@ function Login() {
   };
 
   return (
+    <Context>
     <div className="d-flex justify-content-center">
       <Form>
         <Form.Group controlId="formBasicEmail">
@@ -53,7 +69,7 @@ function Login() {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             type="email"
-            placeholder="Enter email"
+            placeholder="Enter teacher email"
           />
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
@@ -75,7 +91,14 @@ function Login() {
           Submit
         </Button>
       </Form>
+      <Alert variant="danger" show={show} onClose={() => setShow(false)} dismissible>
+        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+        <p>
+          {errorMessage}
+        </p>
+      </Alert>
     </div>
+    </Context>
   );
 }
 

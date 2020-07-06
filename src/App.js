@@ -2,14 +2,15 @@ import React from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
-import Teacher from "./components/Teacher";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Student from "./components/Student"; 
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import TeacherSignUp from "./components/TeacherSignUp";
 import StudentSignUp from "./components/StudentSignUp";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
 import Context from "./components/Context";
+import StudentLogin from "./components/StudentLogin";
+import TeacherProfile from "./components/TeacherProfile";
+
 
 
 function App() {
@@ -20,11 +21,13 @@ function App() {
         <Router>
           <NavBar />
           <Switch>
+          
             <Route path="/" exact component={Home} />
-            <Route path="/teacher" component={Teacher} />
-            <Route path="/student" component={Student} />
             <Route path="/login" component={Login} />
-            <Route path="/signupteacher" component={TeacherSignUp} />
+            <Route path="/studentlogin" component={StudentLogin} />
+            <Route path="/signupteacher" component={TeacherSignUp}/>
+            <Route path="/teacherprofile" component={TeacherProfile}/>
+
             <Route path="/signupstudent" component={StudentSignUp} />
           </Switch>
           </Router>

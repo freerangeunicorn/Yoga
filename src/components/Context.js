@@ -1,4 +1,5 @@
-import React, { createContext, useState } from "react";
+import React from "react";
+import { createContext, useState } from "react";
 
 
 export const AppContext = createContext();
@@ -9,7 +10,8 @@ export const AppContext = createContext();
     return (
         <AppContext.Provider
         value={{
-         token
+         token,
+         setToken
         }}
       >
         {children}
