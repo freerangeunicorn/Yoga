@@ -2,20 +2,22 @@ import React from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
 import TeacherSignUp from "./components/TeacherSignUp";
 import StudentSignUp from "./components/StudentSignUp";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
-import Context from "./components/Context";
+import { TokenProvider } from "./components/Context";
+//import {TokenProvider} from ".Context/TokenContext";
 import StudentLogin from "./components/StudentLogin";
 import TeacherProfile from "./components/TeacherProfile";
+import StudentProfile from './components/StudentProfile';
 
 
 
 function App() {
   return (
-<Context>
+<TokenProvider>
     <div className="page-container">
       <div className="content-wrap">
         <Router>
@@ -27,7 +29,7 @@ function App() {
             <Route path="/studentlogin" component={StudentLogin} />
             <Route path="/signupteacher" component={TeacherSignUp}/>
             <Route path="/teacherprofile" component={TeacherProfile}/>
-
+            <Route path="/studentprofile" component={StudentProfile}/>
             <Route path="/signupstudent" component={StudentSignUp} />
           </Switch>
           </Router>
@@ -35,7 +37,7 @@ function App() {
         <Footer />
      
     </div>
-    </Context>
+    </TokenProvider>
   );
 }
 

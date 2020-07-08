@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button,Form, Col, Carousel} from "react-bootstrap";
-import img from "../YogaSunset.jpeg";
+
 
 
 
@@ -13,7 +13,7 @@ function Home() {
   <Carousel.Item>
     <img
       className="d-block w-100"
-      src="YogaSunset.jpeg"
+      src=""
       alt="First slide"
     />
     <Carousel.Caption>

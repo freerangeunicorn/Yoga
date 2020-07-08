@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import { Card, Nav, Button, Alert} from "react-bootstrap";
 import {useHistory, useLocation} from "react-router-dom";
-
+import { TokenContext } from "./Context";
 
 
 function TeacherProfile() {
   const [teacherData, setTeacherData]=useState({});
   const [show, setShow ] = useState(false);
+  const [token, setToken] = useState(TokenContext);
   const history = useHistory();
+  
   const location = useLocation();
     
 
@@ -45,8 +47,8 @@ function TeacherProfile() {
       })
   
       return () => {
-        console.log("unsubscribe ")}
-    }, [location,history]);
+        console.log("unsubscribe")}
+    },[location, history ]);
 
  
     return (
@@ -70,11 +72,11 @@ function TeacherProfile() {
     </Nav>
   </Card.Header>
   <Card.Body>
-    <Card.Title>{teacherData.first_name} {teacherData.last_name}</Card.Title>
-    <Card.Text>
+    <Card.Title> Name: {teacherData.first_name} {teacherData.last_name}</Card.Title>
+    <Card.Text> Years of Experience :
       {teacherData.years_experience}
     </Card.Text>
-    <Button variant="primary">SAVE</Button>
+    <Button variant="dark">SAVE</Button>
   </Card.Body>
 </Card>
 <Alert variant="danger" show={show} onClose={() => setShow(false)} dismissible>

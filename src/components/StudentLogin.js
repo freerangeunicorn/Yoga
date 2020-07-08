@@ -1,13 +1,17 @@
 import React from "react";
 import { Form, Button} from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
-import Context from "./Context";
+import { useHistory } from "react-router-dom";
+import { TokenContext } from "./Context";
 
 function StudentLogin() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [token, setToken] = useState(TokenContext);
+  const [show,setShow] = useState(false);
+  const [errorMessage, setErrorMessage] = useState ('Something went wrong');
+  const history = useHistory();
 
-  const token = useContext(Context);
 
   const onSubmit = async () => {
     console.log("Studenlogin");
@@ -32,9 +36,16 @@ function StudentLogin() {
       });
     
       const data = await response.json(); 
+      if (data.access_token) {
+        history.push('./studentprofile', {data})
+      }
+      else {
+        setShow(true);
+        setErrorMessage('Login failed, try your luck one more time')
+      }
       console.log(token);
       console.log(data);
-      token.setToken(data.access_token);
+      //token.setToken(data.token);
 
     
 

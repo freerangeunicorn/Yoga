@@ -2,21 +2,17 @@ import React from "react";
 import { createContext, useState } from "react";
 
 
-export const AppContext = createContext();
+export const TokenContext = createContext();
 
-
- function Context({children}) {
+export const TokenProvider = (props) => {
     const [token, setToken] = useState(null);
     return (
-        <AppContext.Provider
-        value={{
-         token,
-         setToken
-        }}
-      >
-        {children}
-      </AppContext.Provider>
-    )
-}
+        <TokenContext.Provider
+        value={[token, setToken]}>
+     
+        {props.children}
+      </TokenContext.Provider>
+    );
+};
 
-export default Context;
+export default TokenContext;

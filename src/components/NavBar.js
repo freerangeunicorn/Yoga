@@ -1,5 +1,6 @@
 import React from "react";
-/* import {Link} from "react-router-dom"; */
+import {useContext} from "react";
+
 import {
   Button,
   Navbar,
@@ -8,9 +9,11 @@ import {
   Form,
   FormControl,
 } from "react-bootstrap";
+import { TokenContext } from "./Context";
 
 
 function NavBar() {
+  const [token, setToken] = useContext(TokenContext);
   return (
     <div>
     <Navbar bg="light" expand="lg">
@@ -20,8 +23,9 @@ function NavBar() {
         <Nav className="mr-auto">
           <Nav.Link href="./.">Home</Nav.Link>
           <NavDropdown title="Login" id="collasible-nav-dropdown">
-        <NavDropdown.Item href="./login">As a teacher </NavDropdown.Item>
-        <NavDropdown.Item href="./studentlogin">Student</NavDropdown.Item>
+        <NavDropdown.Item href="./login">As a teacher {token}    {/* what do u want to render? ADD value*/}
+         </NavDropdown.Item>
+  <NavDropdown.Item href="./studentlogin">Student {token}</NavDropdown.Item>
       </NavDropdown>
           <NavDropdown title="Signup" id="collasible-nav-dropdown">
         <NavDropdown.Item href="./signupteacher">Teacher </NavDropdown.Item>

@@ -1,19 +1,15 @@
 import React from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
-import AppContext from "./Context";
-import Context from "./Context";
 import { useHistory } from "react-router-dom";
+//import { TokenContext } from "./Context";
 
 function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [show,setShow]=useState(false);
-  const [errorMessage, setErrorMessage] = useState('Something went wrong')
-
+  const [errorMessage, setErrorMessage] = useState('Something went wrong');
   const history=useHistory();
-
-  const token = useContext(AppContext);
 
 
   const onSubmit = async () => {
@@ -40,7 +36,7 @@ function Login() {
       });
 
       const data = await response.json();
-      console.log(token);
+      console.log();
       if (data.access_token){
         history.push('/teacherprofile', {data})
       } 
@@ -59,7 +55,7 @@ function Login() {
   };
 
   return (
-    <Context>
+    
     <div className="d-flex justify-content-center">
       <Form>
         <Form.Group controlId="formBasicEmail">
@@ -98,7 +94,7 @@ function Login() {
         </p>
       </Alert>
     </div>
-    </Context>
+
   );
 }
 
