@@ -1,19 +1,20 @@
-import React from "react";
-import { Form, Button, Alert } from "react-bootstrap";
-import { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
-//import { TokenContext } from "./Context";
+import React from 'react';
+import { Form, Button, Alert } from 'react-bootstrap';
+import { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import { TokenContext } from "./Context";
 
 function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [show,setShow]=useState(false);
+  const [token, setToken] = useContext(TokenContext);
   const [errorMessage, setErrorMessage] = useState('Something went wrong');
   const history=useHistory();
 
 
   const onSubmit = async () => {
-  
+
     console.log("login");
 
     const url = "http://localhost:3000/api/login/teacher";
@@ -38,8 +39,9 @@ function Login() {
       const data = await response.json();
       console.log();
       if (data.access_token){
-        history.push('/teacherprofile', {data})
-      } 
+        setToken (data.access_token) //if token is authorized it will push to teacherprofile
+        history.push('/teacherprofile')
+      }
       else {
         setShow(true);
         setErrorMessage('Login failed, try your luck one more time')
@@ -55,7 +57,7 @@ function Login() {
   };
 
   return (
-    
+
     <div className="d-flex justify-content-center">
       <Form>
         <Form.Group controlId="formBasicEmail">

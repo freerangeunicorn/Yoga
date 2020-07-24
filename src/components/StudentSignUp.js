@@ -1,6 +1,6 @@
-import React from "react";
-import { Form, Button, Col } from "react-bootstrap";
-import {useState, useEffect} from "react";
+import React from 'react';
+import { Form, Button, Col } from 'react-bootstrap';
+import {useState, useEffect} from 'react';
 
 
 function StudentSignUp() {

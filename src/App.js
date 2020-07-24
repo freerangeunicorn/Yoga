@@ -1,17 +1,17 @@
-import React from "react";
-import "./App.css";
-import NavBar from "./components/NavBar";
-import Home from "./components/Home";
-import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
-import TeacherSignUp from "./components/TeacherSignUp";
-import StudentSignUp from "./components/StudentSignUp";
-import Footer from "./components/Footer";
-import Login from "./components/Login";
-import { TokenProvider } from "./components/Context";
-//import {TokenProvider} from ".Context/TokenContext";
-import StudentLogin from "./components/StudentLogin";
-import TeacherProfile from "./components/TeacherProfile";
+import React from 'react';
+import './App.css';
+import NavBar from './components/NavBar';
+import Home from './components/Home';
+import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
+import TeacherSignUp from './components/TeacherSignUp';
+import StudentSignUp from './components/StudentSignUp';
+import Footer from './components/Footer';
+import Login from './components/Login';
+import { TokenProvider } from './components/Context';
+import StudentLogin from './components/StudentLogin';
+import TeacherProfile from './components/TeacherProfile';
 import StudentProfile from './components/StudentProfile';
+import Teacher from './components/Teacher';
 
 
 
@@ -23,7 +23,6 @@ function App() {
         <Router>
           <NavBar />
           <Switch>
-          
             <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/studentlogin" component={StudentLogin} />
@@ -35,7 +34,6 @@ function App() {
           </Router>
         </div>
         <Footer />
-     
     </div>
     </TokenProvider>
   );

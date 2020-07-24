@@ -1,13 +1,13 @@
-import React from "react";
-import { Form, Button} from "react-bootstrap";
-import { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
-import { TokenContext } from "./Context";
+import React from 'react';
+import { Form, Button} from 'react-bootstrap';
+import { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import { TokenContext } from './Context';
 
 function StudentLogin() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [token, setToken] = useState(TokenContext);
+  const [token, setToken] = useContext(TokenContext);
   const [show,setShow] = useState(false);
   const [errorMessage, setErrorMessage] = useState ('Something went wrong');
   const history = useHistory();
@@ -34,10 +34,11 @@ function StudentLogin() {
         withCredentials: true,
         body: JSON.stringify(login),
       });
-    
-      const data = await response.json(); 
+
+      const data = await response.json();
       if (data.access_token) {
-        history.push('./studentprofile', {data})
+        setToken(data.access_token)
+        history.push('./studentprofile')
       }
       else {
         setShow(true);
@@ -47,7 +48,7 @@ function StudentLogin() {
       console.log(data);
       //token.setToken(data.token);
 
-    
+
 
       console.log(data);
     } catch (error) {
