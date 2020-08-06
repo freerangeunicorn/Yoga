@@ -1,9 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Card, Tabs, Tab, Button, Alert, TabContent } from "react-bootstrap";
+import {
+  Form,
+  Tabs,
+  Tab,
+  Button,
+  Alert,
+  TabContent,
+  Col,
+} from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { TokenContext } from "./Context";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import TimeRangePicker from '@wojtekmaj/react-timerange-picker';
 
 function TeacherProfile() {
   const [teacherData, setTeacherData] = useState({});
@@ -12,13 +21,19 @@ function TeacherProfile() {
   const history = useHistory();
   const [date, setDate] = useState(new Date());
   const handleChange = (date) => setDate(date);
+
   const today = new Date();
   let in30Days = new Date();
   in30Days.setDate(in30Days.getDate() + 30);
-
-  const CustomInput = ({ value, onClick }) => (
-    <button onClick={onClick}>{value}</button>
-  );
+  // set the state here for what will be used in the create class form and then do handleChange
+  const [title, setTitle] = useState();
+  const [level, setLevel] = useState();
+  const [price, setPrice] = useState();
+  const [style, setStyle] = useState();
+  const [description, setDescription] = useState();
+  const [time, setTime] = useState();
+  const onChange = (time) => setTime(time);
+  // console.log(time)
 
   useEffect(() => {
     const url = "http://localhost:3000/api/teacher"; // buy a domain name and change this url
@@ -52,6 +67,40 @@ function TeacherProfile() {
     };
   }, [token, history]);
 
+  const onSubmit = async () => {
+    console.log("submit");
+
+    const url = "http://localhost:3000/api/yogaclass";
+    const createClass = {
+      title: title,
+      level: level,
+      price: price,
+      style: style,
+      date: date,
+      time: time,
+      description: description,
+    };
+    console.log('hi', JSON.stringify(createClass));
+    try {
+      const header = new Headers();
+      header.append("Accept", "application/json");
+      header.append("Content-type", "application/json");
+      header.append("Authorization", `Bearer ${token}`);
+      const response = await fetch(url, {
+        method: "POST",
+        headers: header,
+        body: JSON.stringify(createClass),
+      });
+      console.log(response);
+      const data = await response.json();
+
+      console.log(data);
+    } catch (error) {
+      console.log("error");
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
@@ -64,19 +113,88 @@ function TeacherProfile() {
           <TabContent />
         </Tab>
         <Tab eventKey="Schedule" title="My Schedule">
-          <TabContent />
-          <DatePicker
+          {/* <TabContent /> */}
+          <div>
+            <Form>
+              <Form.Row>
+                <Form.Group as={Col} controlId="formGridTitle">
+                  <Form.Label>Title</Form.Label>
+                  <Form.Control
+                    value={title}
+                    onChange={(event) => setTitle(event.target.value)}
+                    placeholder="Name your class"
+                  />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="formGridLevel">
+                  <Form.Label>Level</Form.Label>
+                  <Form.Control
+                    value={level}
+                    onChange={(event) => setLevel(event.target.value)}
+                    placeholder="Beginner, intermediate, advanced or all"
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group as={Col} controlId="formGridPrice">
+                  <Form.Label>Price</Form.Label>
+                  <Form.Control
+                    value={price}
+                    onChange={(event) => setPrice(event.target.value)}
+                    placeholder="Your price in USD"
+                  />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="formGridLevel">
+                  <Form.Label>Style of yoga</Form.Label>
+                  <Form.Control
+                    value={style}
+                    onChange={(event) => setStyle(event.target.value)}
+                    placeholder="Hatha, Vinyasa, Yin, Ashtanga, Restorative, Hot yoga or Pre-natal yoga"
+                  />
+                </Form.Group>
+              </Form.Row>
+
+              <Form.Row>
+                <Form.Group as={Col} controlId="formGridDate">
+                  <Form.Label>Select a date</Form.Label>
+                  <DatePicker
             selected={date}
             onChange={handleChange}
             minDate={today}
             maxDate={in30Days}
-            showTimeSelect
-            dateFormat="MMMM d, yyyy h:mm aa"
-            customInput={<CustomInput />}
+
           />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="formGridTime">
+                  <Form.Label>Select time</Form.Label>
+                  <TimeRangePicker
+                    value={time}
+                    onChange={onChange}
+
+                  />
+
+                </Form.Group>
+              </Form.Row>
+
+                <Form.Group controlId="exampleForm.ControlTextarea1">
+                  <Form.Label>Describe your class</Form.Label>
+                  <Form.Control
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                    as="textarea"
+                    rows="3"
+                  />
+                </Form.Group>
+              <Button variant="dark" type="button" onClick={() => onSubmit()}>
+                Submit
+              </Button>
+            </Form>
+          </div>
         </Tab>
         <Tab eventKey="contact" title="Contact" disabled>
-          <TabContent />
+          {/* <TabContent /> */}
         </Tab>
       </Tabs>
 
@@ -88,7 +206,7 @@ function TeacherProfile() {
 
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="./teacher">Classes</Nav.Link>  
+        <Nav.Link href="./teacher">Classes</Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link href="#disabled">
@@ -102,8 +220,8 @@ function TeacherProfile() {
     <Card.Text> Years of Experience :
       {teacherData.years_experience}
     </Card.Text>
-   
-    
+
+
   </Card.Body>
 </Card>
 <Alert variant="danger" show={show} onClose={() => setShow(false)} dismissible>

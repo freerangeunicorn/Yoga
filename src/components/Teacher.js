@@ -8,29 +8,54 @@ import { Card, Nav, Button} from 'react-bootstrap';
 function Teacher() {
   return (
     <div>
-    <Card>
-    <Card.Header>
-      <Nav variant="tabs" defaultActiveKey="#first">
-        <Nav.Item>
-          <Nav.Link href="./teacherprofile">My profile</Nav.Link>
+  {/*   <Form>
+  <Form.Row>
+    <Form.Group as={Col} controlId="formGridTitle">
+      <Form.Label>Email</Form.Label>
+      <Form.Control placeholder="Name your class" />
+    </Form.Group>
+
+    <Form.Group as={Col} controlId="formGridLevel">
+      <Form.Label>Level</Form.Label>
+      <Form.Control  placeholder="Beginner, intermediate, advances or all" />
+    </Form.Group>
+  </Form.Row>
+  <Form.Row>
+    <Form.Group as={Col} controlId="formGridPrice">
+      <Form.Label>Price</Form.Label>
+      <Form.Control placeholder="Your price in USD" />
+    </Form.Group>
+
+    <Form.Group as={Col} controlId="formGridLevel">
+      <Form.Label>Style of yoga</Form.Label>
+      <Form.Control  placeholder="Hatha, Vinyasa, Yin, Ashtanga, Restorative, Hot yoga or Pre-natal yoga" />
+    </Form.Group>
+  </Form.Row>
+
   
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link href="#first">My Schedule</Nav.Link>  
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link href="#disabled">
-            Schedule
-          </Nav.Link>
-        </Nav.Item>   
-      </Nav>
-    </Card.Header>
-    <Card.Body>
-      <Card.Title> Teaching appointments </Card.Title>
-      <Card.Text> Here, add schedule and a list of classes/appointments.1. display schedule so you can click and choose the date you like to create a class.
-      </Card.Text>
-    </Card.Body>
-  </Card>
+    <Form.Group as={Col} controlId="formGridDate">
+      <Form.Label>Select a date and time</Form.Label>
+       <DatePicker
+            selected={date}
+            onChange={handleChange}
+            minDate={today}
+            maxDate={in30Days}
+            showTimeSelect
+            dateFormat="MMMM d, yyyy h:mm aa"
+           //No different then the other forms except one of the inputs is a datepicker
+            //add form here
+          />
+          <Form.Group controlId="exampleForm.ControlTextarea1">
+    <Form.Label>Example textarea</Form.Label>
+    <Form.Control as="textarea" rows="3" />
+  </Form.Group>
+    </Form.Group>
+
+
+  <Button variant="dark" type="submit" onClick={() => onsubmit()}>
+    Submit
+  </Button>
+</Form> */}
     </div>
   );
 }

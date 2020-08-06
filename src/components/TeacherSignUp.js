@@ -146,7 +146,8 @@ function TeacherSignUp() {
           <Form.Label>Last Name</Form.Label>
           <Form.Control required
            value={lastName}
-           onChange={(event) => setLastName(event.target.value)} placeholder="Last Name" />
+           onChange={(event) => setLastName(event.target.value)} 
+           placeholder="Last Name" />
         </Form.Group>
 
         <Form.Row>
