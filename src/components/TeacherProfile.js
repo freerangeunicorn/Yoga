@@ -7,6 +7,9 @@ import {
   Alert,
   TabContent,
   Col,
+  CardGroup,
+  Card,
+  ListGroup,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { TokenContext } from "./Context";
@@ -34,6 +37,7 @@ function TeacherProfile() {
   const [time, setTime] = useState();
   const onChange = (time) => setTime(time);
   // console.log(time)
+  const [classData,setClassdata] = useState([]);
 
   useEffect(() => {
     const url = "http://localhost:3000/api/teacher"; // buy a domain name and change this url
@@ -44,6 +48,7 @@ function TeacherProfile() {
     fetch(url, {
       method: "GET",
       headers: header,
+     
     })
       .then((response) => {
         return response.json();
@@ -101,9 +106,42 @@ function TeacherProfile() {
     }
   };
 
+  const getClasses = async () => { 
+    console.log('PHIL')
+    const url = "http://localhost:3000/api/yogaclass"; // buy a domain name and change this url
+    const header = new Headers();
+    header.append("Accept", "application/json");
+    header.append("Content-type", "application/json");
+    fetch(url, {
+      method: "GET",
+      headers: header,
+     
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+          setClassdata(data);
+          console.log('YOOOOO',data)
+      })
+      .catch((error) => {
+        setShow(true);
+        console.log("error");
+        console.log(error);
+      });
+
+    return () => {
+      console.log("unsubscribe");
+    };
+  };
+
   return (
     <div>
-      <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+      <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" onSelect={(event) => {
+        if (event === 'contact') {
+          getClasses()
+        };
+      }}>
         <Tab eventKey="profile" title="My profile">
           <ul>
             {teacherData.first_name} {teacherData.last_name}
@@ -112,7 +150,7 @@ function TeacherProfile() {
           <Button variant="dark">SAVE</Button>
           <TabContent />
         </Tab>
-        <Tab eventKey="Schedule" title="My Schedule">
+        <Tab eventKey="Schedule" title="Schedule a class">
           {/* <TabContent /> */}
           <div>
             <Form>
@@ -193,43 +231,33 @@ function TeacherProfile() {
             </Form>
           </div>
         </Tab>
-        <Tab eventKey="contact" title="Contact" disabled>
-          {/* <TabContent /> */}
+        <Tab eventKey="contact" title="My classes" >
+          {/* <div className="Classcard"> */}
+        <CardGroup className="yogaclass" style={{ display:"flex", justifyContent:"center" }} >
+        <Card className="flip-card" style={{ width: '18rem', display:"flex", justifyContent:"center" }}>
+          
+          
+          {classData.map((classData, index) => (
+        
+         
+  <Card.Header>{classData.title}</Card.Header>
+  ))}
+  <ListGroup variant="flush">
+    <ListGroup.Item>level: {classData.level}</ListGroup.Item>
+    <ListGroup.Item>price</ListGroup.Item>
+  <ListGroup.Item>price</ListGroup.Item>
+  <ListGroup.Item>date</ListGroup.Item>
+  <ListGroup.Item>length</ListGroup.Item>
+  </ListGroup>
+ 
+</Card>
+</CardGroup>
+{/* </div> */}
         </Tab>
       </Tabs>
+     
 
-      {/*      <Card>
-  <Card.Header>
-    <Nav variant="tabs" defaultActiveKey="#first">
-      <Nav.Item>
-        <Nav.Link href="#first">My profile</Nav.Link>
-
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link href="./teacher">Classes</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link href="#disabled">
-          Schedule
-        </Nav.Link>
-      </Nav.Item>
-    </Nav>
-  </Card.Header>
-  <Card.Body>
-    <Card.Title> Name: {teacherData.first_name} {teacherData.last_name}</Card.Title>
-    <Card.Text> Years of Experience :
-      {teacherData.years_experience}
-    </Card.Text>
-
-
-  </Card.Body>
-</Card>
-<Alert variant="danger" show={show} onClose={() => setShow(false)} dismissible>
-        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-        <p>
-          'Something went wrong'
-        </p>
-      </Alert> */}
+     
     </div>
   );
 }
