@@ -37,7 +37,7 @@ function TeacherProfile() {
   const [time, setTime] = useState();
   const onChange = (time) => setTime(time);
   // console.log(time)
-  const [classData,setClassdata] = useState([]);
+  const [yogaClass,setYogaClass] = useState([]);
 
   useEffect(() => {
     const url = "http://localhost:3000/api/teacher"; // buy a domain name and change this url
@@ -107,21 +107,24 @@ function TeacherProfile() {
   };
 
   const getClasses = async () => { 
-    console.log('PHIL')
+    console.log('SUP')
     const url = "http://localhost:3000/api/yogaclass"; // buy a domain name and change this url
     const header = new Headers();
     header.append("Accept", "application/json");
     header.append("Content-type", "application/json");
+    header.append("Authorization", `Bearer ${token}`);
+
     fetch(url, {
       method: "GET",
       headers: header,
      
     })
       .then((response) => {
+        console.log('2PAC', response)
         return response.json();
       })
       .then((data) => {
-          setClassdata(data);
+          setYogaClass(data);
           console.log('YOOOOO',data)
       })
       .catch((error) => {
@@ -138,7 +141,7 @@ function TeacherProfile() {
   return (
     <div>
       <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" onSelect={(event) => {
-        if (event === 'contact') {
+        if (event === 'myclasses') {
           getClasses()
         };
       }}>
@@ -231,28 +234,34 @@ function TeacherProfile() {
             </Form>
           </div>
         </Tab>
-        <Tab eventKey="contact" title="My classes" >
-          {/* <div className="Classcard"> */}
-        <CardGroup className="yogaclass" style={{ display:"flex", justifyContent:"center" }} >
-        <Card className="flip-card" style={{ width: '18rem', display:"flex", justifyContent:"center" }}>
-          
-          
-          {classData.map((classData, index) => (
+        <Tab eventKey="myclasses" title="My classes" >
         
-         
-  <Card.Header>{classData.title}</Card.Header>
-  ))}
-  <ListGroup variant="flush">
-    <ListGroup.Item>level: {classData.level}</ListGroup.Item>
-    <ListGroup.Item>price</ListGroup.Item>
-  <ListGroup.Item>price</ListGroup.Item>
-  <ListGroup.Item>date</ListGroup.Item>
-  <ListGroup.Item>length</ListGroup.Item>
-  </ListGroup>
- 
+        
+        <Card>
+       
+        {yogaClass.map((yogaClass, index) => (
+          <React.Fragment>
+        <Card.Header>{yogaClass.title} </Card.Header>
+       
+  <Card.Body>
+    <Card.Title>Level:{yogaClass.level} </Card.Title>
+     <ListGroup variant="flush">
+     <ListGroup.Item> Time:{yogaClass.time}</ListGroup.Item>
+    <ListGroup.Item>Price: {yogaClass.price}</ListGroup.Item>
+        <ListGroup.Item>Date: {yogaClass.date}</ListGroup.Item>
+  <ListGroup.Item>Style: {yogaClass.style}</ListGroup.Item>
+        <ListGroup.Item>Duration: {yogaClass.duration} minutes</ListGroup.Item>
+  </ListGroup> 
+    <Card.Text>
+      Description: {yogaClass.description}
+    </Card.Text>
+
+  </Card.Body>
+  </React.Fragment>
+ ))}
 </Card>
-</CardGroup>
-{/* </div> */}
+          
+    
         </Tab>
       </Tabs>
      
