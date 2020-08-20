@@ -228,7 +228,7 @@ function TeacherProfile() {
                     rows="3"
                   />
                 </Form.Group>
-              <Button variant="dark" type="button" onClick={() => onSubmit()}>
+              <Button variant="dark" onClick={() => onSubmit()}>
                 Submit
               </Button>
             </Form>

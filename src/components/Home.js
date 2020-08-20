@@ -8,7 +8,7 @@ import {Button,Form, Col, Carousel} from "react-bootstrap";
 function Home() {
 
     return (
-        <div>
+        <div className="home-page">
         <Carousel>
   <Carousel.Item>
     <img
@@ -73,7 +73,7 @@ function Home() {
     <Form.Check type="checkbox" label="Check me out" />
   </Form.Group>
 
-  <Button variant="dark" type="submit">
+  <Button className="home-btn" class="btn btn-outline-success" variant="success" type="submit">
     Search
   </Button>
             </Form>
