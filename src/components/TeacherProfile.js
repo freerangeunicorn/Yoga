@@ -10,12 +10,14 @@ import {
   CardGroup,
   Card,
   ListGroup,
+  Badge,
+  Dropdown,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { TokenContext } from "./Context";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import TimeRangePicker from '@wojtekmaj/react-timerange-picker';
+import TimeRangePicker from "@wojtekmaj/react-timerange-picker";
 
 function TeacherProfile() {
   const [teacherData, setTeacherData] = useState({});
@@ -37,7 +39,7 @@ function TeacherProfile() {
   const [time, setTime] = useState();
   const onChange = (time) => setTime(time);
   // console.log(time)
-  const [yogaClass,setYogaClass] = useState([]);
+  const [yogaClass, setYogaClass] = useState([]);
 
   useEffect(() => {
     const url = "http://localhost:3000/api/teacher"; // buy a domain name and change this url
@@ -48,7 +50,6 @@ function TeacherProfile() {
     fetch(url, {
       method: "GET",
       headers: header,
-     
     })
       .then((response) => {
         return response.json();
@@ -85,7 +86,7 @@ function TeacherProfile() {
       time: time,
       description: description,
     };
-    console.log('hi', JSON.stringify(createClass));
+    console.log("hi", JSON.stringify(createClass));
     try {
       const header = new Headers();
       header.append("Accept", "application/json");
@@ -106,8 +107,8 @@ function TeacherProfile() {
     }
   };
 
-  const getClasses = async () => { 
-    console.log('SUP')
+  const getClasses = async () => {
+    console.log("SUP");
     const url = "http://localhost:3000/api/yogaclass"; // buy a domain name and change this url
     const header = new Headers();
     header.append("Accept", "application/json");
@@ -117,15 +118,14 @@ function TeacherProfile() {
     fetch(url, {
       method: "GET",
       headers: header,
-     
     })
       .then((response) => {
-        console.log('2PAC', response)
+        console.log("2PAC", response);
         return response.json();
       })
       .then((data) => {
-          setYogaClass(data);
-          console.log('YOOOOO',data)
+        setYogaClass(data);
+        console.log("YOOOOO", data);
       })
       .catch((error) => {
         setShow(true);
@@ -140,11 +140,15 @@ function TeacherProfile() {
 
   return (
     <div>
-      <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" onSelect={(event) => {
-        if (event === 'myclasses') {
-          getClasses()
-        };
-      }}>
+      <Tabs
+        defaultActiveKey="profile"
+        id="uncontrolled-tab-example"
+        onSelect={(event) => {
+          if (event === "myclasses") {
+            getClasses();
+          }
+        }}
+      >
         <Tab eventKey="profile" title="My profile">
           <ul>
             {teacherData.first_name} {teacherData.last_name}
@@ -185,14 +189,32 @@ function TeacherProfile() {
                     placeholder="Your price in USD"
                   />
                 </Form.Group>
-
                 <Form.Group as={Col} controlId="formGridLevel">
-                  <Form.Label>Style of yoga</Form.Label>
-                  <Form.Control
-                    value={style}
-                    onChange={(event) => setStyle(event.target.value)}
-                    placeholder="Hatha, Vinyasa, Yin, Ashtanga, Restorative, Hot yoga or Pre-natal yoga"
-                  />
+                  <Dropdown  value={style}
+                      onSelect={(eventKey) => setStyle(eventKey)}>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                      Style
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu
+                     
+                    >
+                      <Dropdown.Item eventKey="Hatha">Hatha</Dropdown.Item>
+                      <Dropdown.Item eventKey="Vinyasa">Vinyasa</Dropdown.Item>
+                      <Dropdown.Item eventKey="Yin">Yin Yoga</Dropdown.Item>
+                      <Dropdown.Item eventKey="Restorative">
+                        Restorative
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="Ashtanga">
+                        Ashtanga
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="Power">Power Yoga</Dropdown.Item>
+                      <Dropdown.Item eventKey="Pre-Natal">
+                        Pre-natal
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+              
                 </Form.Group>
               </Form.Row>
 
@@ -200,73 +222,63 @@ function TeacherProfile() {
                 <Form.Group as={Col} controlId="formGridDate">
                   <Form.Label>Select a date</Form.Label>
                   <DatePicker
-            selected={date}
-            onChange={handleChange}
-            minDate={today}
-            maxDate={in30Days}
-
-          />
+                    selected={date}
+                    onChange={handleChange}
+                    minDate={today}
+                    maxDate={in30Days}
+                  />
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridTime">
                   <Form.Label>Select time</Form.Label>
-                  <TimeRangePicker
-                    value={time}
-                    onChange={onChange}
-
-                  />
-
+                  <TimeRangePicker value={time} onChange={onChange} />
                 </Form.Group>
               </Form.Row>
 
-                <Form.Group controlId="exampleForm.ControlTextarea1">
-                  <Form.Label>Describe your class</Form.Label>
-                  <Form.Control
-                    value={description}
-                    onChange={(event) => setDescription(event.target.value)}
-                    as="textarea"
-                    rows="3"
-                  />
-                </Form.Group>
+              <Form.Group controlId="exampleForm.ControlTextarea1">
+                <Form.Label>Describe your class</Form.Label>
+                <Form.Control
+                  value={description}
+                  onChange={(event) => setDescription(event.target.value)}
+                  as="textarea"
+                  rows="3"
+                />
+              </Form.Group>
               <Button variant="dark" onClick={() => onSubmit()}>
                 Submit
               </Button>
             </Form>
           </div>
         </Tab>
-        <Tab eventKey="myclasses" title="My classes" >
-        
-        
-        <Card>
-       
-        {yogaClass.map((yogaClass, index) => (
-          <React.Fragment>
-        <Card.Header>{yogaClass.title} </Card.Header>
-       
-  <Card.Body>
-    <Card.Title>Level:{yogaClass.level} </Card.Title>
-     <ListGroup variant="flush">
-     <ListGroup.Item> Time:{yogaClass.time}</ListGroup.Item>
-    <ListGroup.Item>Price: {yogaClass.price}</ListGroup.Item>
-        <ListGroup.Item>Date: {yogaClass.date}</ListGroup.Item>
-  <ListGroup.Item>Style: {yogaClass.style}</ListGroup.Item>
-        <ListGroup.Item>Duration: {yogaClass.duration} minutes</ListGroup.Item>
-  </ListGroup> 
-    <Card.Text>
-      Description: {yogaClass.description}
-    </Card.Text>
+        <Tab eventKey="myclasses" title="My classes">
+          <Card>
+            {yogaClass.map((yogaClass, index) => (
+              <React.Fragment>
+                <Card.Header>
+                  {yogaClass.title}{" "}
+                  {yogaClass.student_id && (
+                    <Badge variant="success">Booked</Badge>
+                  )}{" "}
+                </Card.Header>
 
-  </Card.Body>
-  </React.Fragment>
- ))}
-</Card>
-          
-    
+                <Card.Body>
+                  <Card.Title>Level:{yogaClass.level} </Card.Title>
+                  <ListGroup variant="flush">
+                    <ListGroup.Item> Time:{yogaClass.time}</ListGroup.Item>
+                    <ListGroup.Item>Price: {yogaClass.price}</ListGroup.Item>
+                    <ListGroup.Item>Date: {yogaClass.date}</ListGroup.Item>
+                    <ListGroup.Item>Style: {yogaClass.style}</ListGroup.Item>
+                    <ListGroup.Item>
+                      Duration: {yogaClass.duration} minutes
+                    </ListGroup.Item>
+                  </ListGroup>
+                  <Card.Text>Description: {yogaClass.description}</Card.Text>
+                </Card.Body>
+              </React.Fragment>
+            ))}
+          </Card>
         </Tab>
       </Tabs>
-     
-
-     
     </div>
   );
 }
