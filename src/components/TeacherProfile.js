@@ -40,6 +40,10 @@ function TeacherProfile() {
   const onChange = (time) => setTime(time);
   // console.log(time)
   const [yogaClass, setYogaClass] = useState([]);
+  const [teacherFirstName,setTeacherFirstName] = useState();
+  const [teacherLastName, setTeacherLastName] = useState();
+  const [teacherEmail, setTeacherEmail] = useState();
+  const [teacherExperience,setTeacherExperience] = useState();
 
   useEffect(() => {
     const url = "http://localhost:3000/api/teacher"; // buy a domain name and change this url
@@ -58,6 +62,10 @@ function TeacherProfile() {
         if (data[0].id) {
           console.log(data);
           setTeacherData(data[0]);
+          setTeacherFirstName(data[0].first_name);
+          setTeacherLastName(data[0].last_name);
+          setTeacherEmail(data[0].email);
+          setTeacherExperience(data[0].years_experience)
         } else if (data.msg === "Missing Authorization Header") {
           history.push("/login");
         }
@@ -138,6 +146,43 @@ function TeacherProfile() {
     };
   };
 
+  const editProfile = async () => {
+    console.log("SUPPERMAN");
+    const url = "http://localhost:3000/api/bookclass"; // buy a domain name and change this url
+    const header = new Headers();
+    header.append("Accept", "application/json");
+    header.append("Content-type", "application/json");
+    header.append("Authorization", `Bearer ${token}`);
+
+    fetch(url, {
+      method: "PUT",
+      headers: header,
+      body: JSON.stringify({}),
+    })
+      .then((response) => {
+        console.log("confirmation response from be", response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log("is it true?", data);
+        const url = "http://localhost:3000/api/teacher"; // buy a domain name and change this url
+        const header = new Headers();
+        header.append("Accept", "application/json");
+        header.append("Content-type", "application/json");
+        header.append("Authorization", `Bearer ${token}`);
+
+        fetch(url, {
+          headers: header,
+        });
+      })
+      .catch((error) => {
+        console.log("error");
+        console.log(error);
+      });
+    
+  };
+
+
   return (
     <div>
       <Tabs
@@ -150,11 +195,37 @@ function TeacherProfile() {
         }}
       >
         <Tab eventKey="profile" title="My profile">
-          <ul>
-            {teacherData.first_name} {teacherData.last_name}
-          </ul>
-          <ul>{teacherData.years_experience} </ul>
-          <Button variant="dark">SAVE</Button>
+  {/*   <List></List>
+    <Input></Input> */}
+          <Form>
+            <Form.Group controlId="formName" >
+              <Form.Label>
+                Name:
+              </Form.Label>
+              {/* backtick and dolla sign? */}
+              <Form.Control value={teacherFirstName} onChange={handleChange} />
+              <Form.Control value={teacherLastName} onChange={handleChange} />
+            </Form.Group>
+
+            <Form.Group controlId="formEmail">
+            <Form.Label>Email:</Form.Label>
+            <Form.Control value={teacherEmail} onChange={handleChange} />
+             
+              <Form.Control />
+            </Form.Group>
+
+            <Form.Group controlId="formYears">
+
+              <Form.Label>Experience:</Form.Label>
+              <Form.Control value={teacherExperience} onChange={handleChange}/>
+            </Form.Group>
+
+            <Button onClick={() => {
+              editProfile();
+            }} 
+            variant="success" >EDIT</Button>
+          </Form>
+
           <TabContent />
         </Tab>
         <Tab eventKey="Schedule" title="Schedule a class">
@@ -190,15 +261,15 @@ function TeacherProfile() {
                   />
                 </Form.Group>
                 <Form.Group as={Col} controlId="formGridLevel">
-                  <Dropdown  value={style}
-                      onSelect={(eventKey) => setStyle(eventKey)}>
+                  <Dropdown
+                    value={style}
+                    onSelect={(eventKey) => setStyle(eventKey)}
+                  >
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                       Style
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu
-                     
-                    >
+                    <Dropdown.Menu>
                       <Dropdown.Item eventKey="Hatha">Hatha</Dropdown.Item>
                       <Dropdown.Item eventKey="Vinyasa">Vinyasa</Dropdown.Item>
                       <Dropdown.Item eventKey="Yin">Yin Yoga</Dropdown.Item>
@@ -214,7 +285,6 @@ function TeacherProfile() {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-              
                 </Form.Group>
               </Form.Row>
 

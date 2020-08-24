@@ -24,6 +24,8 @@ function NavBar() {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="./.">Home</Nav.Link>
+          {!token &&
+          <React.Fragment>
           <NavDropdown title="Login" id="collasible-nav-dropdown">
         <NavDropdown.Item href="./login">As a teacher {token}  
          </NavDropdown.Item>
@@ -33,6 +35,9 @@ function NavBar() {
         <NavDropdown.Item href="./signupteacher">Teacher </NavDropdown.Item>
         <NavDropdown.Item href="./signupstudent">Student</NavDropdown.Item>
       </NavDropdown>
+      </React.Fragment>
+        }
+        {token && <Nav.Link href="./.">Logout</Nav.Link>}
         </Nav>
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
