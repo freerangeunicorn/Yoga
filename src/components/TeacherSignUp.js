@@ -91,7 +91,7 @@ function TeacherSignUp() {
   };
   
   return (
-    <div className='d-flex justify-content-center'>
+    <div c/* lass='d-flex justify-content-center' */ className="sign-up" >
       <Form>
         <Form.Row>
           <Form.Group as={Col} controlId="formGridEmail">
@@ -152,8 +152,10 @@ function TeacherSignUp() {
 
         <Form.Row>
           <Form.Group as={Col} controlId="formGridTime">
+          
             <Form.Label>Default Timezone</Form.Label>
-            <TimezonePicker
+            <br />
+            <TimezonePicker className="zone-picker"
   absolute      = {false}
   defaultValue  = {timeZone}
   placeholder   = "Select timezone..."

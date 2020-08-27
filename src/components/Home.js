@@ -40,39 +40,6 @@ function Home() {
         </Carousel.Item>
       </Carousel>
       <hr />
-
-      <Form>
-        <Form.Row>
-          <Form.Group as={Col} controlId="formGridDate">
-            <Form.Label>When do you want to practice?</Form.Label>
-            <Form.Control />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridType">
-            <Form.Label>Style of Yoga</Form.Label>
-            <Form.Control as="select" defaultValue="Choose...">
-              <option>Choose...</option>
-              <option>...</option>
-            </Form.Control>
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridLocation">
-            <Form.Label>
-              Is this needed if the browser will show timezone?
-            </Form.Label>
-            <Form.Control />
-          </Form.Group>
-        </Form.Row>
-
-        <Button
-          className="home-btn"
-          class="btn btn-outline-success"
-          variant="success"
-          type="submit"
-        >
-          Search
-        </Button>
-      </Form>
     </div>
   );
 }

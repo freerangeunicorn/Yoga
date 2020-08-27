@@ -12,6 +12,7 @@ import {
   Col,
   Form,
   Dropdown,
+  FormLabel,
 } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
 import { TokenContext } from "./Context";
@@ -123,16 +124,8 @@ function StudentProfile() {
       })
       .then((data) => {
         setToast(data.confirmation);
-        console.log("is it true?", data);
-        const url = "http://localhost:3000/api/email"; // buy a domain name and change this url
-        const header = new Headers();
-        header.append("Accept", "application/json");
-        header.append("Content-type", "application/json");
-        header.append("Authorization", `Bearer ${token}`);
-
-        fetch(url, {
-          headers: header,
-        });
+        console.log("is it true?");
+  
       })
       .catch((error) => {
         console.log("error");
@@ -183,12 +176,16 @@ function StudentProfile() {
           if (event === "allClasses") {
             getClasses();
           }
+          else if (event === 'Search') {
+            setYogaClass([]);
+          }
+    
         }}
       >
-        <Tab eventKey="studentClasses" title="Student Classes">
+        <Tab eventKey="studentClasses" title="My Classes">
           <TabContent>
-            <Card className="text-center">
-              <Card.Header>Upcoming class</Card.Header>
+            <Card className="text-center" style={{marginBottom: 20}}>
+              <Card.Header>Upcoming class:</Card.Header>
               <Card.Body>
                 <Card.Title>
                   {studentData.first_name} {studentData.last_name}{" "}
@@ -196,14 +193,16 @@ function StudentProfile() {
                 <Card.Text>Next class:</Card.Text>
                 <Button variant="dark">Enter</Button>
               </Card.Body>
-              <Card.Footer className="text-muted">Previous</Card.Footer>
+              <Card.Footer className="text-muted">Previous: </Card.Footer>
             </Card>
           </TabContent>
         </Tab>
-        <Tab eventKey="allClasses" title="Book a class">
-          <Card>
-            {yogaClass.map((yogaClass, index) => (
-              <React.Fragment>
+        <Tab eventKey="allClasses" title="Explore Yoga classes">
+        {yogaClass.map((yogaClass, index) => (
+           <React.Fragment>
+          <Card style={{marginBottom: 20}}>
+            
+      
                 <Card.Header>{yogaClass.title} </Card.Header>
 
                 <Card.Body>
@@ -222,9 +221,10 @@ function StudentProfile() {
                     <ListGroup.Item>
                       Duration: {yogaClass.duration} minutes
                     </ListGroup.Item>
+                    <ListGroup.Item>Description: {yogaClass.description}</ListGroup.Item>
                   </ListGroup>
-                  <Card.Text>Description: {yogaClass.description}</Card.Text>
-                  <Button
+                  
+                  <Button class="button-center"
                     onClick={() => {
                       book(yogaClass.id);
                     }}
@@ -233,16 +233,18 @@ function StudentProfile() {
                     Book
                   </Button>
                 </Card.Body>
+                </Card>
               </React.Fragment>
             ))}
-          </Card>
+          
     
         </Tab>
         <Tab eventKey="Search" title="Search a class">
           <TabContent />
-          <Form>
+          <Form className="search-form">
             <Form.Group controlId="formBasicDate">
-              <Form.Label>Select a date</Form.Label>
+              <Form.Label>Select a date: </Form.Label>
+              <br/>
               <DatePicker
                     selected={date}
                     onChange={handleChange}
@@ -251,13 +253,11 @@ function StudentProfile() {
                     showTimeSelect
                   />
             </Form.Group>
-            <Form.Group controlId="formBasicTime">
-              <Form.Label>When do you want to practice?</Form.Label>
-              {/* <TimePicker onChange={onChange} /> */}
-                </Form.Group>
+            
             
 
             <Form.Group controlId="formBasicStyle">
+              <FormLabel>Pick a style!</FormLabel>
               <Dropdown
                 value={style}
                 onSelect={(eventKey) => setStyle(eventKey)}
@@ -281,10 +281,10 @@ function StudentProfile() {
             </Form.Group>
 
             <Button variant="dark" onClick={() => handleSearch()}>
-              Submit
+              Search
             </Button>
           </Form>
-          <Card>
+          <Card style={{marginBottom: 20}}>
             {yogaClass.map((yogaClass, index) => (
               <React.Fragment>
                 <Card.Header>{yogaClass.title} </Card.Header>
@@ -306,9 +306,10 @@ function StudentProfile() {
                       Duration: {yogaClass.duration} minutes
                     </ListGroup.Item>
                   </ListGroup>
-                  <Card.Text>Description: {yogaClass.description}</Card.Text>
+                  <Card.Text> Description: {yogaClass.description}</Card.Text>
+                  <Button variant="dark" onClick={() => handleSearch()}></Button>  {/* can u use the same book for async? */}
                 </Card.Body>
-                <Button variant="dark" onClick={() => handleSearch()}></Button>  {/* can u use the same book for async? */}
+               
                 </React.Fragment>
             ))
           }

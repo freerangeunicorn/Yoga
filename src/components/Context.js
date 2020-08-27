@@ -1,15 +1,11 @@
 import React from 'react';
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState } from 'react';
 
 
 export const TokenContext = createContext();
 
 export const TokenProvider = (props) => {
     const [token, setToken] = useState(null);
-
-    useEffect(() => {
-      window.sessionStorage.setItem('Token', token)
-    }, [token]);
 
     return (
         <TokenContext.Provider

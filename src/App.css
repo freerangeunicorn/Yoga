@@ -1,3 +1,7 @@
+a {
+  color: black !important;
+}
+
 .main-footer {
   background-color:
   #aacc83;
@@ -16,13 +20,17 @@
 
 .content-wrap {
   flex: 1;
-
 }
 
 .profile-button {
   display: flex;
   justify-content: center;
   padding-top: 10px;
+}
+
+.btn-success {
+  display: flex!important;
+  margin-top: 10px!important;
 }
 
 .tab-content {
@@ -36,7 +44,6 @@
   margin-left: 10px;
   margin-right: 10px;
   margin-top: 10px;
-  
 
 }
 
@@ -50,4 +57,36 @@
 .navbar-expand-lg {
   background-color: 
   #aacc83!important;
+}
+.form-centered {
+  margin: auto;
+  width: 30em;
+}
+.sign-up {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+} 
+.zone-picker {
+  width: 30em;
+}
+.timezone-picker-textfield input {
+  height: 39px;
+  border-radius: 7px;
+
+}
+.search-form {
+  margin: auto;
+  width: 10em;
+  
+}
+
+.card-body {
+ color: black;
+ background-color: #aacc83;
+}
+
+.btn-dark {
+margin-bottom: 20px;
 }

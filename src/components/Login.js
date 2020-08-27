@@ -58,7 +58,7 @@ function Login() {
 
   return (
 
-    <div className="d-flex justify-content-center">
+    <div class='d-flex justify-content-center' style={{marginTop: '30px'}}>
       <Form>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>

@@ -11,18 +11,25 @@ import {
 import { TokenContext } from "./Context";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSeedling } from '@fortawesome/free-solid-svg-icons';
+import { useHistory} from "react-router-dom";
 
 
 
 function NavBar() {
   const [token, setToken] = useContext(TokenContext);
+  const history = useHistory();
+  const handleLogOut = () => {
+    setToken(null);
+    history.push("/");
+  }
+
   return (
     <div>
     <Navbar expand="lg">
   <Navbar.Brand href="#home"> YOGIC <FontAwesomeIcon icon={faSeedling} /> </Navbar.Brand> {/* import lotus icon */}
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+        <Nav className="ml-auto">
           <Nav.Link href="./.">Home</Nav.Link>
           {!token &&
           <React.Fragment>
@@ -37,12 +44,8 @@ function NavBar() {
       </NavDropdown>
       </React.Fragment>
         }
-        {token && <Nav.Link href="./.">Logout</Nav.Link>}
+        {token && <Button variant="outline-light" onClick= {() => handleLogOut()}>Log out</Button>}
         </Nav>
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-light">Search</Button>
-        </Form>
       </Navbar.Collapse>
     </Navbar>
     </div>

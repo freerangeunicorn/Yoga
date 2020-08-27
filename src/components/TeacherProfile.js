@@ -40,10 +40,10 @@ function TeacherProfile() {
   const onChange = (time) => setTime(time);
   // console.log(time)
   const [yogaClass, setYogaClass] = useState([]);
-  const [teacherFirstName,setTeacherFirstName] = useState();
+  const [teacherFirstName, setTeacherFirstName] = useState();
   const [teacherLastName, setTeacherLastName] = useState();
   const [teacherEmail, setTeacherEmail] = useState();
-  const [teacherExperience,setTeacherExperience] = useState();
+  const [teacherExperience, setTeacherExperience] = useState();
 
   useEffect(() => {
     const url = "http://localhost:3000/api/teacher"; // buy a domain name and change this url
@@ -65,7 +65,7 @@ function TeacherProfile() {
           setTeacherFirstName(data[0].first_name);
           setTeacherLastName(data[0].last_name);
           setTeacherEmail(data[0].email);
-          setTeacherExperience(data[0].years_experience)
+          setTeacherExperience(data[0].years_experience);
         } else if (data.msg === "Missing Authorization Header") {
           history.push("/login");
         }
@@ -147,8 +147,15 @@ function TeacherProfile() {
   };
 
   const editProfile = async () => {
-    console.log("SUPPERMAN");
-    const url = "http://localhost:3000/api/bookclass"; // buy a domain name and change this url
+    const newTeacherData = {
+      first_name: teacherFirstName,
+      last_name: teacherLastName,
+      email: teacherEmail,
+      years_experience: teacherExperience,
+    };
+    console.log("Gangstabitch", newTeacherData);
+    const url = "http://localhost:3000/api/teacher"; // buy a domain name and change this url
+
     const header = new Headers();
     header.append("Accept", "application/json");
     header.append("Content-type", "application/json");
@@ -157,35 +164,22 @@ function TeacherProfile() {
     fetch(url, {
       method: "PUT",
       headers: header,
-      body: JSON.stringify({}),
+      body: JSON.stringify(newTeacherData),
     })
       .then((response) => {
         console.log("confirmation response from be", response);
         return response.json();
       })
-      .then((data) => {
-        console.log("is it true?", data);
-        const url = "http://localhost:3000/api/teacher"; // buy a domain name and change this url
-        const header = new Headers();
-        header.append("Accept", "application/json");
-        header.append("Content-type", "application/json");
-        header.append("Authorization", `Bearer ${token}`);
-
-        fetch(url, {
-          headers: header,
-        });
-      })
       .catch((error) => {
         console.log("error");
         console.log(error);
       });
-    
   };
-
 
   return (
     <div>
       <Tabs
+        className="d-flex justify-content-center"
         defaultActiveKey="profile"
         id="uncontrolled-tab-example"
         onSelect={(event) => {
@@ -195,35 +189,35 @@ function TeacherProfile() {
         }}
       >
         <Tab eventKey="profile" title="My profile">
-  {/*   <List></List>
-    <Input></Input> */}
-          <Form>
-            <Form.Group controlId="formName" >
-              <Form.Label>
-                Name:
-              </Form.Label>
-              {/* backtick and dolla sign? */}
-              <Form.Control value={teacherFirstName} onChange={handleChange} />
-              <Form.Control value={teacherLastName} onChange={handleChange} />
-            </Form.Group>
+          <Form className="form-centered">
+            <Form.Group controlId="formName">
+              <Form.Label>First Name:</Form.Label>
 
-            <Form.Group controlId="formEmail">
-            <Form.Label>Email:</Form.Label>
-            <Form.Control value={teacherEmail} onChange={handleChange} />
-             
-              <Form.Control />
+              <Form.Control
+                value={teacherFirstName}
+                onChange={(event) => setTeacherFirstName(event.target.value)}
+              />
+              <Form.Label>Last Name:</Form.Label>
+              <Form.Control
+                value={teacherLastName}
+                onChange={(event) => setTeacherLastName(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email:{teacherEmail}</Form.Label>
             </Form.Group>
 
             <Form.Group controlId="formYears">
-
               <Form.Label>Experience:</Form.Label>
-              <Form.Control value={teacherExperience} onChange={handleChange}/>
+              <Form.Control
+                value={teacherExperience}
+                onChange={(event) => setTeacherExperience(event.target.value)}
+              />
             </Form.Group>
 
-            <Button onClick={() => {
-              editProfile();
-            }} 
-            variant="success" >EDIT</Button>
+            <Button variant="success" onClick={() => editProfile()}>
+              Save
+            </Button>
           </Form>
 
           <TabContent />
@@ -231,66 +225,47 @@ function TeacherProfile() {
         <Tab eventKey="Schedule" title="Schedule a class">
           {/* <TabContent /> */}
           <div>
-            <Form>
-              <Form.Row>
-                <Form.Group as={Col} controlId="formGridTitle">
-                  <Form.Label>Title</Form.Label>
+            <Form className="form-centered">
+              <Form.Group controlId="formGridTitle">
+                <Form.Label>Title:</Form.Label>
+                <Form.Control
+                  value={title}
+                  onChange={(event) => setTitle(event.target.value)}
+                  placeholder="Name your class"
+                />
+              </Form.Group>
+              {/* <br /> */}
+              <Form.Group controlId="formGridLevel">
+                <Form.Label>Level:</Form.Label>
+                <Form.Control
+                  required
+                  value={level}
+                  onChange={(event) => setLevel(event.target.value)}
+                  placeholder="Beginner, intermediate, advanced or all"
+                />
+              </Form.Group>
+              <Form.Group controlId="formGridPrice">
+                <Form.Label>What's your price?</Form.Label>
+                <Form.Control
+                  value={price}
+                  onChange={(event) => setPrice(event.target.value)}
+                  placeholder="Your price in USD"
+                />
+              </Form.Group>
+              <Form.Group controlId="formGridLevel">
+                <Form.Group controlId="exampleForm.ControlTextarea1">
+                  <Form.Label>Describe your class:</Form.Label>
                   <Form.Control
-                    value={title}
-                    onChange={(event) => setTitle(event.target.value)}
-                    placeholder="Name your class"
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                    as="textarea"
+                    rows="3"
                   />
                 </Form.Group>
 
-                <Form.Group as={Col} controlId="formGridLevel">
-                  <Form.Label>Level</Form.Label>
-                  <Form.Control
-                    value={level}
-                    onChange={(event) => setLevel(event.target.value)}
-                    placeholder="Beginner, intermediate, advanced or all"
-                  />
-                </Form.Group>
-              </Form.Row>
-              <Form.Row>
-                <Form.Group as={Col} controlId="formGridPrice">
-                  <Form.Label>Price</Form.Label>
-                  <Form.Control
-                    value={price}
-                    onChange={(event) => setPrice(event.target.value)}
-                    placeholder="Your price in USD"
-                  />
-                </Form.Group>
-                <Form.Group as={Col} controlId="formGridLevel">
-                  <Dropdown
-                    value={style}
-                    onSelect={(eventKey) => setStyle(eventKey)}
-                  >
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      Style
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item eventKey="Hatha">Hatha</Dropdown.Item>
-                      <Dropdown.Item eventKey="Vinyasa">Vinyasa</Dropdown.Item>
-                      <Dropdown.Item eventKey="Yin">Yin Yoga</Dropdown.Item>
-                      <Dropdown.Item eventKey="Restorative">
-                        Restorative
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="Ashtanga">
-                        Ashtanga
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="Power">Power Yoga</Dropdown.Item>
-                      <Dropdown.Item eventKey="Pre-Natal">
-                        Pre-natal
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Form.Group>
-              </Form.Row>
-
-              <Form.Row>
-                <Form.Group as={Col} controlId="formGridDate">
-                  <Form.Label>Select a date</Form.Label>
+                <Form.Group controlId="formGridDate">
+                  <Form.Label>Select a date: </Form.Label>
+                  <br/>
                   <DatePicker
                     selected={date}
                     onChange={handleChange}
@@ -299,21 +274,35 @@ function TeacherProfile() {
                   />
                 </Form.Group>
 
-                <Form.Group as={Col} controlId="formGridTime">
-                  <Form.Label>Select time</Form.Label>
+                <Form.Group controlId="formGridTime">
+                  <Form.Label>Select time: </Form.Label>
+                  <br/>
                   <TimeRangePicker value={time} onChange={onChange} />
                 </Form.Group>
-              </Form.Row>
+                <Dropdown
+                  value={style}
+                  onSelect={(eventKey) => setStyle(eventKey)}
+                >
+                  <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    Choose Style
+                  </Dropdown.Toggle>
 
-              <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Form.Label>Describe your class</Form.Label>
-                <Form.Control
-                  value={description}
-                  onChange={(event) => setDescription(event.target.value)}
-                  as="textarea"
-                  rows="3"
-                />
+                  <Dropdown.Menu>
+                    <Dropdown.Item eventKey="Hatha">Hatha</Dropdown.Item>
+                    <Dropdown.Item eventKey="Vinyasa">Vinyasa</Dropdown.Item>
+                    <Dropdown.Item eventKey="Yin">Yin Yoga</Dropdown.Item>
+                    <Dropdown.Item eventKey="Restorative">
+                      Restorative
+                    </Dropdown.Item>
+                    <Dropdown.Item eventKey="Ashtanga">Ashtanga</Dropdown.Item>
+                    <Dropdown.Item eventKey="Power">Power Yoga</Dropdown.Item>
+                    <Dropdown.Item eventKey="Pre-Natal">
+                      Pre-natal
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </Form.Group>
+
               <Button variant="dark" onClick={() => onSubmit()}>
                 Submit
               </Button>
@@ -321,9 +310,9 @@ function TeacherProfile() {
           </div>
         </Tab>
         <Tab eventKey="myclasses" title="My classes">
-          <Card>
-            {yogaClass.map((yogaClass, index) => (
-              <React.Fragment>
+          {yogaClass.map((yogaClass, index) => (
+            <React.Fragment>
+              <Card className="yoga-card" style={{ marginBottom: 20 }}>
                 <Card.Header>
                   {yogaClass.title}{" "}
                   {yogaClass.student_id && (
@@ -334,7 +323,7 @@ function TeacherProfile() {
                 <Card.Body>
                   <Card.Title>Level:{yogaClass.level} </Card.Title>
                   <ListGroup variant="flush">
-                    <ListGroup.Item> Time:{yogaClass.time}</ListGroup.Item>
+                    <ListGroup.Item> Time: {yogaClass.time}</ListGroup.Item>
                     <ListGroup.Item>Price: {yogaClass.price}</ListGroup.Item>
                     <ListGroup.Item>Date: {yogaClass.date}</ListGroup.Item>
                     <ListGroup.Item>Style: {yogaClass.style}</ListGroup.Item>
@@ -344,9 +333,9 @@ function TeacherProfile() {
                   </ListGroup>
                   <Card.Text>Description: {yogaClass.description}</Card.Text>
                 </Card.Body>
-              </React.Fragment>
-            ))}
-          </Card>
+              </Card>
+            </React.Fragment>
+          ))}
         </Tab>
       </Tabs>
     </div>

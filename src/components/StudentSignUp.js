@@ -43,7 +43,7 @@ function StudentSignUp() {
   };
 
   return (
-    <div className="d-flex justify-content-center">
+    <div className="d-flex justify-content-center" style={{marginTop: '20px', marginBottom:'10px'}}>
       <Form>
         <Form.Row>
           <Col>
@@ -100,7 +100,7 @@ function StudentSignUp() {
           />
         </Form.Group>
         <Form.Group controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
+          <Form.Check type="checkbox" label="I agree to these terms" />
         </Form.Group>
         <Button variant="dark" onClick={() => onSubmit()}>
           Submit
