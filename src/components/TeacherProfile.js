@@ -284,7 +284,7 @@ function TeacherProfile() {
                   onSelect={(eventKey) => setStyle(eventKey)}
                 >
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Choose Style
+                    Choose a style
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
