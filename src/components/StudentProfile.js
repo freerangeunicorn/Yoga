@@ -293,13 +293,13 @@ function StudentProfile() {
                   <Card.Title>Level:{yogaClass.level} </Card.Title>
                   <ListGroup variant="flush">
                     <ListGroup.Item>
-                      Teacher:{yogaClass.first_name} {yogaClass.last_name}
+                      Teacher: {yogaClass.first_name} {yogaClass.last_name}
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      Years of experience:{yogaClass.years_experience}
+                      Years of experience: {yogaClass.years_experience}
                     </ListGroup.Item>
-                    <ListGroup.Item> Time:{yogaClass.time}</ListGroup.Item>
-                    <ListGroup.Item>Price: {yogaClass.price}</ListGroup.Item>
+                    <ListGroup.Item> Time: {yogaClass.time}</ListGroup.Item>
+                    <ListGroup.Item>Price: ${yogaClass.price}</ListGroup.Item>
                     <ListGroup.Item>Date: {yogaClass.date}</ListGroup.Item>
                     <ListGroup.Item>Style: {yogaClass.style}</ListGroup.Item>
                     <ListGroup.Item>

@@ -1,4 +1,8 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+
+
 
  function Footer() {
     return (
@@ -29,9 +33,9 @@ import React from 'react';
                     <div className="col">
                     <h7>Follow us</h7>
                     <ul className="list-unstyled">
-                            <li>Testimonials</li>
-                            <li>Facebook</li>
-                            <li>Instagram</li>
+    <li><FontAwesomeIcon icon={faCoffee} /> </li>
+    <li></li>
+                            <li></li>
                         </ul>
                     </div>
             </div>

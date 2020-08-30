@@ -313,7 +313,7 @@ function TeacherProfile() {
           {yogaClass.map((yogaClass, index) => (
             <React.Fragment>
               <Card className="yoga-card" style={{ marginBottom: 20 }}>
-                <Card.Header>
+                <Card.Header className="card-header">
                   {yogaClass.title}{" "}
                   {yogaClass.student_id && (
                     <Badge variant="success">Booked</Badge>
@@ -324,14 +324,15 @@ function TeacherProfile() {
                   <Card.Title>Level:{yogaClass.level} </Card.Title>
                   <ListGroup variant="flush">
                     <ListGroup.Item> Time: {yogaClass.time}</ListGroup.Item>
-                    <ListGroup.Item>Price: {yogaClass.price}</ListGroup.Item>
+                    <ListGroup.Item>Price: ${yogaClass.price}</ListGroup.Item>
                     <ListGroup.Item>Date: {yogaClass.date}</ListGroup.Item>
                     <ListGroup.Item>Style: {yogaClass.style}</ListGroup.Item>
+                    <ListGroup.Item>Style: {yogaClass.description}</ListGroup.Item>
                     <ListGroup.Item>
                       Duration: {yogaClass.duration} minutes
                     </ListGroup.Item>
                   </ListGroup>
-                  <Card.Text>Description: {yogaClass.description}</Card.Text>
+                  
                 </Card.Body>
               </Card>
             </React.Fragment>
