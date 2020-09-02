@@ -265,7 +265,7 @@ function TeacherProfile() {
 
                 <Form.Group controlId="formGridDate">
                   <Form.Label>Select a date: </Form.Label>
-                  <br/>
+                  <br />
                   <DatePicker
                     selected={date}
                     onChange={handleChange}
@@ -276,7 +276,7 @@ function TeacherProfile() {
 
                 <Form.Group controlId="formGridTime">
                   <Form.Label>Select time: </Form.Label>
-                  <br/>
+                  <br />
                   <TimeRangePicker value={time} onChange={onChange} />
                 </Form.Group>
                 <Dropdown
@@ -314,25 +314,26 @@ function TeacherProfile() {
             <React.Fragment>
               <Card className="yoga-card" style={{ marginBottom: 20 }}>
                 <Card.Header className="card-header">
-                  {yogaClass.title}{" "}
+                  {yogaClass.title}
                   {yogaClass.student_id && (
                     <Badge variant="success">Booked</Badge>
-                  )}{" "}
+                  )}
                 </Card.Header>
 
                 <Card.Body>
                   <Card.Title>Level:{yogaClass.level} </Card.Title>
                   <ListGroup variant="flush">
-                    <ListGroup.Item> Time: {yogaClass.time}</ListGroup.Item>
+                    <ListGroup.Item>Time: {yogaClass.time}</ListGroup.Item>
                     <ListGroup.Item>Price: ${yogaClass.price}</ListGroup.Item>
                     <ListGroup.Item>Date: {yogaClass.date}</ListGroup.Item>
                     <ListGroup.Item>Style: {yogaClass.style}</ListGroup.Item>
-                    <ListGroup.Item>Style: {yogaClass.description}</ListGroup.Item>
+                    <ListGroup.Item>
+                      Style: {yogaClass.description}
+                    </ListGroup.Item>
                     <ListGroup.Item>
                       Duration: {yogaClass.duration} minutes
                     </ListGroup.Item>
                   </ListGroup>
-                  
                 </Card.Body>
               </Card>
             </React.Fragment>
