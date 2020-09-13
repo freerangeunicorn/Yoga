@@ -17,3 +17,10 @@ Yoga platform that allows you to practice yoga with a teacher anywhere in the wo
 * [x] The student user can search yoga class by specific time, date and yoga style.
 * [x] The teacher user can create a yoga class based on the following specifications: time, date, yoga style, price and level.
 
+Software Architecture:
+CRUD application with RESTful APIs
+
+Tech Stack:
+- JavaScript
+- ReactJS
+- Reactbootstrap
