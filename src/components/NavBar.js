@@ -1,5 +1,5 @@
-import React from 'react';
-import {useContext} from 'react';
+import React from "react";
+import { useContext } from "react";
 import {
   Button,
   Navbar,
@@ -9,11 +9,9 @@ import {
   FormControl,
 } from "react-bootstrap";
 import { TokenContext } from "./Context";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSeedling } from '@fortawesome/free-solid-svg-icons';
-import { useHistory} from "react-router-dom";
-
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSeedling } from "@fortawesome/free-solid-svg-icons";
+import { useHistory } from "react-router-dom";
 
 function NavBar() {
   const [token, setToken] = useContext(TokenContext);
@@ -21,33 +19,47 @@ function NavBar() {
   const handleLogOut = () => {
     setToken(null);
     history.push("/");
-  }
+  };
 
   return (
     <div>
-    <Navbar expand="lg">
-  <Navbar.Brand href="#home"> YOGIC <FontAwesomeIcon icon={faSeedling} /> </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto">
-          <Nav.Link href="./.">Home</Nav.Link>
-          {!token &&
-          <React.Fragment>
-          <NavDropdown title="Login" id="collasible-nav-dropdown">
-        <NavDropdown.Item href="./login">As a teacher {token}  
-         </NavDropdown.Item>
-  <NavDropdown.Item href="./studentlogin">Student {token}</NavDropdown.Item>
-      </NavDropdown>
-          <NavDropdown title="Signup" id="collasible-nav-dropdown">
-        <NavDropdown.Item href="./signupteacher">Teacher </NavDropdown.Item>
-        <NavDropdown.Item href="./signupstudent">Student</NavDropdown.Item>
-      </NavDropdown>
-      </React.Fragment>
-        }
-        {token && <Button variant="outline-light" onClick= {() => handleLogOut()}>Log out</Button>}
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+      <Navbar expand="lg">
+        <Navbar.Brand href="#home">
+          {" "}
+          YOGIC <FontAwesomeIcon icon={faSeedling} />{" "}
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ml-auto">
+            <Nav.Link href="./.">Home</Nav.Link>
+            {!token && (
+              <React.Fragment>
+                <NavDropdown title="Login" id="collasible-nav-dropdown">
+                  <NavDropdown.Item href="./login">
+                    As a teacher {token}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="./studentlogin">
+                    Student {token}
+                  </NavDropdown.Item>
+                </NavDropdown>
+                <NavDropdown title="Signup" id="collasible-nav-dropdown">
+                  <NavDropdown.Item href="./signupteacher">
+                    Teacher{" "}
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="./signupstudent">
+                    Student
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </React.Fragment>
+            )}
+            {token && (
+              <Button variant="outline-light" onClick={() => handleLogOut()}>
+                Log out
+              </Button>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     </div>
   );
 }

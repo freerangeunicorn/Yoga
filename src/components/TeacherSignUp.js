@@ -1,12 +1,9 @@
 import React from "react";
 import { Form, Col, Button, Toast, ToastBody, Alert } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import TimezonePicker from 'react-bootstrap-timezone-picker';
-import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
+import TimezonePicker from "react-bootstrap-timezone-picker";
+import "react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css";
 import { useHistory } from "react-router-dom";
-
-
-
 
 function TeacherSignUp() {
   const [email, setEmail] = useState();
@@ -15,13 +12,12 @@ function TeacherSignUp() {
   const [password2, setPassword2] = useState();
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
-  const [timeZone, setTimeZone] = useState('Europe/Stockholm');
+  const [timeZone, setTimeZone] = useState("Europe/Stockholm");
   const [showToast, setShowToast] = useState(false);
-  const [show,setShow]=useState(false);
-  const [errorMessage, setErrorMessage] = useState('Something went wrong')
-  
-  const history=useHistory();
+  const [show, setShow] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("Something went wrong");
 
+  const history = useHistory();
 
   useEffect(() => {
     if (password === password2) {
@@ -30,7 +26,6 @@ function TeacherSignUp() {
       setShowToast(true);
     }
   }, [password, password2]);
-
 
   const onExperience = (value) => {
     /* console.log(value) */
@@ -43,9 +38,8 @@ function TeacherSignUp() {
     }
   };
 
-  const onSubmit = async() => {
-  
-    const url = 'http://localhost:3000/api/teacher'
+  const onSubmit = async () => {
+    const url = "http://localhost:3000/api/teacher";
     const teacherData = {
       first_name: firstName,
       last_name: lastName,
@@ -53,45 +47,42 @@ function TeacherSignUp() {
       email: email,
       years_experience: experience,
       default_timezone: timeZone,
-    }
-    console.log(JSON.stringify(teacherData))
-    
+    };
+    console.log(JSON.stringify(teacherData));
+
     try {
       const header = new Headers();
-      header.append('Accept', 'application/json');
-      header.append('Content-type','application/json');
-      const response = await fetch(url, { 
-        method: 'POST',
-        headers: header, 
+      header.append("Accept", "application/json");
+      header.append("Content-type", "application/json");
+      const response = await fetch(url, {
+        method: "POST",
+        headers: header,
         //withCredentials: true,
-        body: JSON.stringify(teacherData)
+        body: JSON.stringify(teacherData),
       });
       console.log(response);
       const data = await response.json();
       if (data.id) {
-        history.push('/login')
-      }
-      else {
+        history.push("/login");
+      } else {
         setErrorMessage(data.error);
         setShow(true);
       }
-      
-       console.log(data);
+
+      console.log(data);
     } catch (error) {
-      setErrorMessage('network problem');
-        setShow(true);
-      console.log('error')
-      console.log(error)
+      setErrorMessage("network problem");
+      setShow(true);
     }
-  }
+  };
 
   const onPassword = (value) => {
     console.log(password);
     console.log(password2);
   };
-  
+
   return (
-    <div c/* lass='d-flex justify-content-center' */ className="sign-up" >
+    <div className="sign-up">
       <Form>
         <Form.Row>
           <Form.Group as={Col} controlId="formGridEmail">
@@ -104,7 +95,6 @@ function TeacherSignUp() {
               placeholder="Enter email"
             />
           </Form.Group>
-
           <Form.Group as={Col} controlId="formGridPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -131,7 +121,6 @@ function TeacherSignUp() {
             />
           </Form.Group>
         </Form.Row>
-
         <Form.Group controlId="formGridName1">
           <Form.Label>First Name</Form.Label>
           <Form.Control
@@ -141,26 +130,26 @@ function TeacherSignUp() {
             placeholder="First Name"
           />
         </Form.Group>
-
         <Form.Group controlId="formGridName2">
           <Form.Label>Last Name</Form.Label>
-          <Form.Control required
-           value={lastName}
-           onChange={(event) => setLastName(event.target.value)} 
-           placeholder="Last Name" />
+          <Form.Control
+            required
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
+            placeholder="Last Name"
+          />
         </Form.Group>
-
         <Form.Row>
           <Form.Group as={Col} controlId="formGridTime">
-          
             <Form.Label>Default Timezone</Form.Label>
             <br />
-            <TimezonePicker className="zone-picker"
-  absolute      = {false}
-  defaultValue  = {timeZone}
-  placeholder   = "Select timezone..."
-  onChange      = {(timeZone)=>setTimeZone(timeZone)}
-/>
+            <TimezonePicker
+              className="zone-picker"
+              absolute={false}
+              defaultValue={timeZone}
+              placeholder="Select timezone..."
+              onChange={(timeZone) => setTimeZone(timeZone)}
+            />
           </Form.Group>
           <Form.Group controlId="formGridExperience">
             <Form.Label>Years of Experience</Form.Label>
@@ -172,30 +161,29 @@ function TeacherSignUp() {
             />
           </Form.Group>
         </Form.Row>
-
         <Form.Group id="formGridCheckbox">
-          <Form.Check 
-          required
-          type="checkbox" 
-          label="I agree to these terms" 
-          feedback="You must agree before submitting." />
+          <Form.Check
+            required
+            type="checkbox"
+            label="I agree to these terms"
+            feedback="You must agree before submitting."
+          />
         </Form.Group>
-        
         <Button variant="dark" onClick={() => onSubmit()}>
           Submit
         </Button>
       </Form>
-
-      <Alert variant="danger" show={show} onClose={() => setShow(false)} dismissible>
+      <Alert
+        variant="danger"
+        show={show}
+        onClose={() => setShow(false)}
+        dismissible
+      >
         <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-        <p>
-          {errorMessage}
-        </p>
+        <p>{errorMessage}</p>
       </Alert>
     </div>
   );
 }
-
-
 
 export default TeacherSignUp;

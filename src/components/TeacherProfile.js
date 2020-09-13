@@ -153,7 +153,7 @@ function TeacherProfile() {
       email: teacherEmail,
       years_experience: teacherExperience,
     };
-    console.log("Gangstabitch", newTeacherData);
+    console.log("hello", newTeacherData);
     const url = "http://localhost:3000/api/teacher"; // buy a domain name and change this url
 
     const header = new Headers();
@@ -206,7 +206,6 @@ function TeacherProfile() {
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email:{teacherEmail}</Form.Label>
             </Form.Group>
-
             <Form.Group controlId="formYears">
               <Form.Label>Experience:</Form.Label>
               <Form.Control
@@ -214,12 +213,10 @@ function TeacherProfile() {
                 onChange={(event) => setTeacherExperience(event.target.value)}
               />
             </Form.Group>
-
             <Button variant="success" onClick={() => editProfile()}>
               Save
             </Button>
           </Form>
-
           <TabContent />
         </Tab>
         <Tab eventKey="Schedule" title="Schedule a class">
@@ -234,7 +231,6 @@ function TeacherProfile() {
                   placeholder="Name your class"
                 />
               </Form.Group>
-              {/* <br /> */}
               <Form.Group controlId="formGridLevel">
                 <Form.Label>Level:</Form.Label>
                 <Form.Control
@@ -262,7 +258,6 @@ function TeacherProfile() {
                     rows="3"
                   />
                 </Form.Group>
-
                 <Form.Group controlId="formGridDate">
                   <Form.Label>Select a date: </Form.Label>
                   <br />
@@ -273,7 +268,6 @@ function TeacherProfile() {
                     maxDate={in30Days}
                   />
                 </Form.Group>
-
                 <Form.Group controlId="formGridTime">
                   <Form.Label>Select time: </Form.Label>
                   <br />
@@ -286,7 +280,6 @@ function TeacherProfile() {
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
                     Choose a style
                   </Dropdown.Toggle>
-
                   <Dropdown.Menu>
                     <Dropdown.Item eventKey="Hatha">Hatha</Dropdown.Item>
                     <Dropdown.Item eventKey="Vinyasa">Vinyasa</Dropdown.Item>
@@ -302,7 +295,6 @@ function TeacherProfile() {
                   </Dropdown.Menu>
                 </Dropdown>
               </Form.Group>
-
               <Button variant="dark" onClick={() => onSubmit()}>
                 Submit
               </Button>
@@ -319,7 +311,6 @@ function TeacherProfile() {
                     <Badge variant="success">Booked</Badge>
                   )}
                 </Card.Header>
-
                 <Card.Body>
                   <Card.Title>Level:{yogaClass.level} </Card.Title>
                   <ListGroup variant="flush">

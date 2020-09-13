@@ -37,13 +37,15 @@ function StudentSignUp() {
 
       console.log(data);
     } catch (error) {
-      console.log("error");
       console.log(error);
     }
   };
 
   return (
-    <div className="d-flex justify-content-center" style={{marginTop: '20px', marginBottom:'10px'}}>
+    <div
+      className="d-flex justify-content-center"
+      style={{ marginTop: "20px", marginBottom: "10px" }}
+    >
       <Form>
         <Form.Row>
           <Col>

@@ -1,22 +1,18 @@
-import React from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
-import { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from "react";
+import { Form, Button, Alert } from "react-bootstrap";
+import { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { TokenContext } from "./Context";
 
 function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [show,setShow]=useState(false);
+  const [show, setShow] = useState(false);
   const [token, setToken] = useContext(TokenContext);
-  const [errorMessage, setErrorMessage] = useState('Something went wrong');
-  const history=useHistory();
-
+  const [errorMessage, setErrorMessage] = useState("Something went wrong");
+  const history = useHistory();
 
   const onSubmit = async () => {
-
-    console.log("login");
-
     const url = "http://localhost:3000/api/login/teacher";
     const login = {
       password: password,
@@ -38,27 +34,21 @@ function Login() {
 
       const data = await response.json();
       console.log();
-      if (data.access_token){
-        setToken (data.access_token) //if token is authorized it will push to teacherprofile
-        history.push('/teacherprofile')
-      }
-      else {
+      if (data.access_token) {
+        setToken(data.access_token); //if token is authorized it will push to teacherprofile
+        history.push("/teacherprofile");
+      } else {
         setShow(true);
-        setErrorMessage('Login failed, try your luck one more time')
+        setErrorMessage("Login failed, try your luck one more time");
       }
-      //token.setToken(data.access_token);
 
-
-      console.log(data);
     } catch (error) {
-      console.log("error");
       console.log(error);
     }
   };
 
   return (
-
-    <div class='d-flex justify-content-center' style={{marginTop: '30px'}}>
+    <div class="d-flex justify-content-center" style={{ marginTop: "30px" }}>
       <Form>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -89,14 +79,16 @@ function Login() {
           Submit
         </Button>
       </Form>
-      <Alert variant="danger" show={show} onClose={() => setShow(false)} dismissible>
+      <Alert
+        variant="danger"
+        show={show}
+        onClose={() => setShow(false)}
+        dismissible
+      >
         <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-        <p>
-          {errorMessage}
-        </p>
+        <p>{errorMessage}</p>
       </Alert>
     </div>
-
   );
 }
 

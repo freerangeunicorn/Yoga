@@ -11,7 +11,7 @@ import { TokenProvider } from './components/Context';
 import StudentLogin from './components/StudentLogin';
 import TeacherProfile from './components/TeacherProfile';
 import StudentProfile from './components/StudentProfile';
-import Teacher from './components/Teacher';
+
 
 
 
